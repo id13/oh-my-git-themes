@@ -38,15 +38,15 @@ FG_COLOR_GREEN=%F{2}
 : ${omg_has_untracked_files_symbol:='●'}
 : ${omg_has_adds_symbol:='✚'}
 : ${omg_has_deletions_symbol:='✖'}
-: ${omg_has_cached_deletions_symbol:='(✖)'}
+: ${omg_has_cached_deletions_symbol:='✖'}
 : ${omg_has_modifications_symbol:='✎'}
-: ${omg_has_cached_modifications_symbol:='(✎)'}
+: ${omg_has_cached_modifications_symbol:='✎'}
 : ${omg_ready_to_commit_symbol:='→'}           
 : ${omg_is_on_a_tag_symbol:='⌫'}                
 : ${omg_detached_symbol:='∤'}
 : ${omg_can_fast_forward_symbol:='»'}
 : ${omg_has_diverged_symbol:='Ⴤ'}              
-: ${omg_not_tracked_branch_symbol:='✭'}
+: ${omg_not_tracked_branch_symbol:='★'}
 : ${omg_rebase_tracking_branch_symbol:='↶'}    
 : ${omg_merge_tracking_branch_symbol:='>'}     
 : ${omg_should_push_symbol:='↑'}               
@@ -54,16 +54,16 @@ FG_COLOR_GREEN=%F{2}
 : ${omg_has_action_in_progress_symbol:='⚡'}    
 
 autoload -U colors && colors
-
+RETURN_CODE="%(?..$FG_COLOR_RED%? ↵$RESET)"
 PROMPT='$(build_prompt)'
-RPROMPT='${RETURN_CODE}'
+RPROMPT="${RETURN_CODE}"
 
 function enrich_append {
     local flag=$1
     local symbol=$2
     local color=${3:-$omg_default_color_on}
     if [[ $flag == true ]]; then 
-        echo -n "${color}${symbol}  "
+        echo -n "${color}${symbol} "
     else
         echo ""
     fi
@@ -108,7 +108,6 @@ function custom_build_prompt {
     local RESET_COLOR_FG=%f%k
     local RESET_FG=%{$RESET_COLOR_FG%}
     local RESET=%{$RESET_COLOR%}
-    local RETURN_CODE="%(?..$FG_COLOR_RED%? ↵$RESET)"
     local ARROW_SYMBOL=''
     local ZSH_TIME=%D{%H:%M}
     local PADDING=''
@@ -141,8 +140,8 @@ function custom_build_prompt {
 
         # ready
         prompt+=$(enrich_append $has_adds $omg_has_adds_symbol "${FG_COLOR_RED}${BG_COLOR_BASE01}")
-        prompt+=$(enrich_append $has_modifications_cached $omg_has_cached_modifications_symbol "${FG_COLOR_BLUE}${BG_COLOR_BASE01}")
-        prompt+=$(enrich_append $has_deletions_cached $omg_has_cached_deletions_symbol "${FG_COLOR_BLUE}${BG_COLOR_BASE01}")
+        prompt+=$(enrich_append $has_modifications_cached $omg_has_cached_modifications_symbol "${FG_COLOR_GREEN}${BG_COLOR_BASE01}")
+        prompt+=$(enrich_append $has_deletions_cached $omg_has_cached_deletions_symbol "${FG_COLOR_GREEN}${BG_COLOR_BASE01}")
         
         # next operation
 
@@ -157,7 +156,7 @@ function custom_build_prompt {
             prompt+=$(enrich_append $detached "(${current_commit_hash:0:7})" "${black_on_red}")
         else            
             if [[ $has_upstream == false ]]; then
-                prompt+=$(enrich_append true "-- ${omg_not_tracked_branch_symbol}  --  (${current_branch})" "${black_on_red}")
+                prompt+=$(enrich_append true "-- ${omg_not_tracked_branch_symbol} --  (${current_branch})" "${black_on_red}")
             else
                 if [[ $will_rebase == true ]]; then
                     local type_of_upstream=$omg_rebase_tracking_branch_symbol
@@ -175,7 +174,7 @@ function custom_build_prompt {
                         prompt+=$(enrich_append true "-- %F{white}${omg_should_push_symbol}%F{white} +${commits_ahead}" "${black_on_red}")
                     fi
                     if [[ $commits_ahead == 0 && $commits_behind == 0 ]]; then
-                         prompt+=$(enrich_append true " --   -- " "${black_on_red}")
+                         prompt+=$(enrich_append true " --  -- " "${black_on_red}")
                     fi
                     
                 fi
