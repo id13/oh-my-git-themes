@@ -132,8 +132,8 @@ function custom_build_prompt {
 
     if [[ $is_a_git_repo == true ]]; then
         # on filesystem
-        prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${ARROW_SYMBOL}"
-        prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${current_path}"
+        prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${ARROW_SYMBOL} "
+        prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${current_path} "
         prompt+=$(enrich_append $is_a_git_repo $omg_is_a_git_repo_symbol "${FG_COLOR_BASE3}${BG_COLOR_BASE01}")
         prompt+=$(enrich_append $has_stashes $omg_has_stashes_symbol "${FG_COLOR_YELLOW}${BG_COLOR_BASE01}")
 
@@ -154,7 +154,7 @@ function custom_build_prompt {
 
         # where
 
-        prompt="${prompt}${FG_COLOR_BASE1}${BG_COLOR_BASE02} ${black_on_red}"
+        prompt+="${FG_COLOR_BASE1}${BG_COLOR_BASE02}${black_on_red} "
         if [[ $detached == true ]]; then
             prompt+=$(enrich_append $detached $omg_detached_symbol "${white_on_red}")
             prompt+=$(enrich_append $detached "(${current_commit_hash:0:7})" "${black_on_red}")
