@@ -111,19 +111,18 @@ function custom_build_prompt {
     local ARROW_SYMBOL=''
     local ZSH_TIME=%D{%H:%M}
     local PADDING=''
-    
-    local ZSH_POWERLINE_DIRECTORY_DEPTH=2 
+
     # Flags
     local omg_default_color_on="${black_on_white}"
 
-    local current_path="%~"
+    local current_path="%2~"
 
     # a new line before prompt
     local prompt="
     "
     # username@hostname
 
-      prompt="${prompt}${FG_COLOR_BLUE}${BG_COLOR_BASE3}${PADDING}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
+    prompt+="${FG_COLOR_BLUE}${BG_COLOR_BASE3}${PADDING}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
 
       PADDING=' '
 
@@ -134,7 +133,7 @@ function custom_build_prompt {
     if [[ $is_a_git_repo == true ]]; then
         # on filesystem
         prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${ARROW_SYMBOL}"
-        prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${DIRECOTORY_DEPTH}"
+        prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE01}${current_path}"
         prompt+=$(enrich_append $is_a_git_repo $omg_is_a_git_repo_symbol "${FG_COLOR_BASE3}${BG_COLOR_BASE01}")
         prompt+=$(enrich_append $has_stashes $omg_has_stashes_symbol "${FG_COLOR_YELLOW}${BG_COLOR_BASE01}")
 
@@ -191,7 +190,7 @@ function custom_build_prompt {
         ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
     else
       prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${ARROW_SYMBOL}"
-      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${DIRECOTORY_DEPTH}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
+      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${current_path}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
         
     fi
     prompt+="${RESET}"
