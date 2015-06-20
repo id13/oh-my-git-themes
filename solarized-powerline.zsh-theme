@@ -56,8 +56,9 @@ FG_COLOR_GREEN=%F{2}
 
 autoload -U colors && colors
 
-
-PROMPT='$(build_prompt)'
+PROMPT='
+'
+PROMPT='${PROMPT}$(build_prompt)'
 RPROMPT='${RETURN_CODE}'
 
 function enrich_append {
@@ -118,11 +119,10 @@ function custom_build_prompt {
     local current_path="%2~"
 
     # a new line before prompt
-    local prompt="
-    "
+
     # username@hostname
 
-    prompt+="${FG_COLOR_BLUE}${BG_COLOR_BASE3}${PADDING}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
+    prompt="${FG_COLOR_BLUE}${BG_COLOR_BASE3}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
 
       PADDING=' '
 
@@ -190,7 +190,7 @@ function custom_build_prompt {
         ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
     else
       prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${ARROW_SYMBOL}"
-      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${current_path}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
+      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02} ${current_path}${reset}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
         
     fi
     prompt+="${RESET}"
