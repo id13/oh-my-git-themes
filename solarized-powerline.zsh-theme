@@ -184,8 +184,8 @@ function custom_build_prompt {
             fi
         fi
         prompt+=$(enrich_append ${is_on_a_tag} "${omg_is_on_a_tag_symbol} ${tag_at_current_commit}" "${black_on_red}")
-        prompt="${prompt} %E
-        ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
+        prompt="${prompt}%E\n"
+        prompt+=${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL} "
     else
       prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${ARROW_SYMBOL}"
       prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02} ${current_path} ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
