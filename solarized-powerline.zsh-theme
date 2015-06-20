@@ -99,7 +99,7 @@ function custom_build_prompt {
     local yellow_on_white="%K{white}%F{yellow}"
     local red_on_white="%K{white}%F{red}"
     local red_on_black="%K{black}%F{red}"
-    local black_on_red="${FG_COLOR_ORRANGE}${BG_COLOR_BASE02}"
+    local black_on_red="${FG_COLOR_ORANGE}${BG_COLOR_BASE02}"
     local white_on_red="%${FG_COLOR_BASE3}${BG_COLOR_BASE02}"
     local yellow_on_red="%K{red}%F{yellow}"
     # reset color
@@ -154,7 +154,7 @@ function custom_build_prompt {
 
         # where
 
-        prompt="${prompt} ${FG_COLOR_BASE-1}${BG_COLOR_BASE02} ${black_on_red}"
+        prompt="${prompt}${FG_COLOR_BASE1}${BG_COLOR_BASE02}  ${black_on_red}"
         if [[ $detached == true ]]; then
             prompt+=$(enrich_append $detached $omg_detached_symbol "${white_on_red}")
             prompt+=$(enrich_append $detached "(${current_commit_hash:0:7})" "${black_on_red}")
