@@ -34,7 +34,6 @@ FG_COLOR_BLUE=%F{4}
 FG_COLOR_CYAN=%F{6}
 FG_COLOR_GREEN=%F{2}
 
-: ${omg_ungit_prompt:=$PS1}
 : ${omg_is_a_git_repo_symbol:='❤'}
 : ${omg_has_untracked_files_symbol:='●'}
 : ${omg_has_adds_symbol:='+'}
@@ -56,18 +55,19 @@ FG_COLOR_GREEN=%F{2}
 
 autoload -U colors && colors
 
-PROMPT='
-'
-PROMPT='${PROMPT}$(build_prompt)'
+PROMPT='$(build_prompt)'
 RPROMPT='${RETURN_CODE}'
 
 function enrich_append {
     local flag=$1
     local symbol=$2
     local color=${3:-$omg_default_color_on}
-    if [[ $flag == false ]]; then symbol=' '; fi
+    if [[ $flag == true ]]; then 
+        echo -n "${color}${symbol}  "
+    else
+        echo ""
+    fi
 
-    echo -n "${color}${symbol}  "
 }
 
 function custom_build_prompt {
@@ -124,11 +124,9 @@ function custom_build_prompt {
 
     prompt="${FG_COLOR_BLUE}${BG_COLOR_BASE3}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
 
-      PADDING=' '
-
     # time
 
-      prompt="${prompt}${FG_COLOR_MAGENTA}${BG_COLOR_BASE3}${PADDING}[${ZSH_TIME}]"
+    prompt="${prompt}${FG_COLOR_MAGENTA}${BG_COLOR_BASE3} [${ZSH_TIME}] "
 
     if [[ $is_a_git_repo == true ]]; then
         # on filesystem
