@@ -121,7 +121,6 @@ function custom_build_prompt {
     # a new line before prompt
 
     # username@hostname
-
     prompt="${FG_COLOR_BLUE}${BG_COLOR_BASE3}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
 
     # time
@@ -185,10 +184,10 @@ function custom_build_prompt {
         fi
         prompt+=$(enrich_append ${is_on_a_tag} "${omg_is_on_a_tag_symbol} ${tag_at_current_commit}" "${black_on_red}")
         prompt="${prompt}%E\n"
-        prompt+="${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL} "
+        prompt+="  ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL} "
     else
       prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${ARROW_SYMBOL}"
-      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02} ${current_path} ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
+      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02} ${current_path} ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL} "
         
     fi
     prompt+="${RESET}"
