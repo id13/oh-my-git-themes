@@ -44,12 +44,12 @@ FG_COLOR_GREEN=%F{2}
 : ${omg_ready_to_commit_symbol:='→'}           
 : ${omg_is_on_a_tag_symbol:='⌫'}                
 : ${omg_detached_symbol:='∤'}
-: ${omg_can_fast_forward_symbol:='»'}
+: ${omg_can_fast_forward_symbol:='⇅'}
 : ${omg_has_diverged_symbol:='Ⴤ'}              
 : ${omg_not_tracked_branch_symbol:='★'}
 : ${omg_rebase_tracking_branch_symbol:='↶'}    
 : ${omg_merge_tracking_branch_symbol:='>'}     
-: ${omg_should_push_symbol:='↑'}               
+: ${omg_should_push_symbol:='⇅'}               
 : ${omg_has_stashes_symbol:='≣'}
 : ${omg_has_action_in_progress_symbol:='⚡'}    
 
@@ -101,7 +101,7 @@ function custom_build_prompt {
     local red_on_white="%K{white}%F{red}"
     local red_on_black="%K{black}%F{red}"
     local black_on_red="${FG_COLOR_ORANGE}${BG_COLOR_BASE02}"
-    local white_on_red="%${FG_COLOR_BASE3}${BG_COLOR_BASE02}"
+    local white_on_red="${FG_COLOR_BASE3}${BG_COLOR_BASE02}"
     local yellow_on_red="%K{red}%F{yellow}"
     # reset color
     local RESET_COLOR=%f%k%b
@@ -167,15 +167,18 @@ function custom_build_prompt {
                 if [[ $has_diverged == true ]]; then
                     prompt+=$(enrich_append true "-${commits_behind} ${omg_has_diverged_symbol} +${commits_ahead}" "${white_on_red}")
                 else
-                    if [[ $commits_behind -gt 0 ]]; then
-                        prompt+=$(enrich_append true "-${commits_behind} %F{white}${omg_can_fast_forward_symbol}%F{white} --" "${black_on_red}")
-                    fi
                     if [[ $commits_ahead -gt 0 ]]; then
-                        prompt+=$(enrich_append true "-- %F{white}${omg_should_push_symbol}%F{white} +${commits_ahead}" "${black_on_red}")
+                        prompt+=$(enrich_append true "+${commits_ahead}" "${white_on_red}")
+                    else
+                        prompt+=$(enrich_append true "--" ${black_on_red})                      
+                    fi                  
+                    prompt+=$(enrich_append true "${omg_can_fast_forward_symbol}" "${white_on_red}" )
+                    if [[ $commits_behind -gt 0 ]]; then
+                        prompt+=$(enrich_append true "-${commits_behind}" "${white_on_red}")
+                    else 
+                        prompt+=$(enrich_append true "--" ${black_on_red})                    
                     fi
-                    if [[ $commits_ahead == 0 && $commits_behind == 0 ]]; then
-                         prompt+=$(enrich_append true " --  -- " "${black_on_red}")
-                    fi
+
                     
                 fi
                 prompt+=$(enrich_append true "(${current_branch} ${type_of_upstream} ${upstream//\/$current_branch/})" "${black_on_red}")
