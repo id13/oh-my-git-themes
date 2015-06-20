@@ -57,24 +57,6 @@ FG_COLOR_GREEN=%F{2}
 autoload -U colors && colors
 
 
-# reset color
-local RESET_COLOR=%f%k%b
-local RESET_COLOR_FG=%f%k
-local RESET_FG=%{$RESET_COLOR_FG%}
-local RESET=%{$RESET_COLOR%}
-local RETURN_CODE="%(?..$FG_COLOR_RED%? ↵$RESET)"
-local ARROW_SYMBOL=''
-local ZSH_TIME=%D{%H:%M}
-local PADDING=''
-
-ZSH_POWERLINE_DIRECTORY_DEPTH = 2
-DIRECOTORY_DEPTH="%${ZSH_POWERLINE_DIRECTORY_DEPTH}~"
-
-# current directory (%E hightline all line to end)
-
-# single line or double lines
-
-
 PROMPT='$(build_prompt)'
 RPROMPT='${RETURN_CODE}'
 
@@ -120,7 +102,17 @@ function custom_build_prompt {
     local black_on_red="${FG_COLOR_ORRANGE}${BG_COLOR_BASE02}"
     local white_on_red="%${FG_COLOR_BASE3}${BG_COLOR_BASE02}"
     local yellow_on_red="%K{red}%F{yellow}"
- 
+    # reset color
+    local RESET_COLOR=%f%k%b
+    local RESET_COLOR_FG=%f%k
+    local RESET_FG=%{$RESET_COLOR_FG%}
+    local RESET=%{$RESET_COLOR%}
+    local RETURN_CODE="%(?..$FG_COLOR_RED%? ↵$RESET)"
+    local ARROW_SYMBOL=''
+    local ZSH_TIME=%D{%H:%M}
+    local PADDING=''
+    
+    local ZSH_POWERLINE_DIRECTORY_DEPTH=2 
     # Flags
     local omg_default_color_on="${black_on_white}"
 
