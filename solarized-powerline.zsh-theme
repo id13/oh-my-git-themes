@@ -36,9 +36,9 @@ FG_COLOR_GREEN=%F{2}
 
 : ${omg_is_a_git_repo_symbol:='❤'}
 : ${omg_has_untracked_files_symbol:='●'}
-: ${omg_has_adds_symbol:='+'}
-: ${omg_has_deletions_symbol:='-'}
-: ${omg_has_cached_deletions_symbol:='(-)'}
+: ${omg_has_adds_symbol:='✚'}
+: ${omg_has_deletions_symbol:='✖'}
+: ${omg_has_cached_deletions_symbol:='(✖)'}
 : ${omg_has_modifications_symbol:='✎'}
 : ${omg_has_cached_modifications_symbol:='(✎)'}
 : ${omg_ready_to_commit_symbol:='→'}           
@@ -46,7 +46,7 @@ FG_COLOR_GREEN=%F{2}
 : ${omg_detached_symbol:='∤'}
 : ${omg_can_fast_forward_symbol:='»'}
 : ${omg_has_diverged_symbol:='Ⴤ'}              
-: ${omg_not_tracked_branch_symbol:='X'}
+: ${omg_not_tracked_branch_symbol:='✭'}
 : ${omg_rebase_tracking_branch_symbol:='↶'}    
 : ${omg_merge_tracking_branch_symbol:='>'}     
 : ${omg_should_push_symbol:='↑'}               
@@ -152,7 +152,7 @@ function custom_build_prompt {
 
         # where
 
-        prompt+="${FG_COLOR_BASE1}${BG_COLOR_BASE02}${black_on_red} "
+        prompt+="${FG_COLOR_BASE01}${BG_COLOR_BASE02}${black_on_red} "
         if [[ $detached == true ]]; then
             prompt+=$(enrich_append $detached $omg_detached_symbol "${white_on_red}")
             prompt+=$(enrich_append $detached "(${current_commit_hash:0:7})" "${black_on_red}")
@@ -173,7 +173,7 @@ function custom_build_prompt {
                         prompt+=$(enrich_append true "-${commits_behind} %F{white}${omg_can_fast_forward_symbol}%F{white} --" "${black_on_red}")
                     fi
                     if [[ $commits_ahead -gt 0 ]]; then
-                        prompt+=$(enrich_append true "-- %F{white}${omg_should_push_symbol}%F{white}  +${commits_ahead}" "${black_on_red}")
+                        prompt+=$(enrich_append true "-- %F{white}${omg_should_push_symbol}%F{white} +${commits_ahead}" "${black_on_red}")
                     fi
                     if [[ $commits_ahead == 0 && $commits_behind == 0 ]]; then
                          prompt+=$(enrich_append true " --   -- " "${black_on_red}")
@@ -188,7 +188,7 @@ function custom_build_prompt {
         ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
     else
       prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${ARROW_SYMBOL}"
-      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02} ${current_path}${reset}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
+      prompt="${prompt}${FG_COLOR_BASE3}${BG_COLOR_BASE02} ${current_path} ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
         
     fi
     prompt+="${RESET}"
