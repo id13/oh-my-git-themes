@@ -117,12 +117,11 @@ function custom_build_prompt {
 
     local current_path="%2~"
 
-    # a new line before prompt
 
     # username@hostname
-    prompt="${FG_COLOR_BLUE}${BG_COLOR_BASE3}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
-
-    # time
+    # a new line before prompt
+    prompt="\n"
+    prompt+="${FG_COLOR_BLUE}${BG_COLOR_BASE3}%n${FG_COLOR_GREEN}${BG_COLOR_BASE3}@${FG_COLOR_VIOLET}${BG_COLOR_BASE3}%m"
 
     prompt="${prompt}${FG_COLOR_MAGENTA}${BG_COLOR_BASE3} [${ZSH_TIME}] "
 
